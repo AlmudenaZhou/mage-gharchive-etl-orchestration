@@ -1,0 +1,8 @@
+blocks:
+  silver_artificer:
+    name: silver artificer
+    type: chart
+    uuid: silver_artificer
+layout:
+- - block_uuid: silver_artificer
+    width: 1
