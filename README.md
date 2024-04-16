@@ -1,6 +1,6 @@
 # mage-gharchive-etl-orchestration
 
-### Setup
+## Setup
 
 1. Build the container: `docker compose build`
 2. Start the container: `docker compose up`
@@ -14,7 +14,7 @@
       ```
 
 
-### Mage Structure
+## Mage Structure
 
 Mage phase follows the [ETL process](../README.md#etl). However, that process inside Mage it is divided into 3 steps:
 
