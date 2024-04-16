@@ -8,7 +8,6 @@
 4. Change io_config.yaml to:
 version: 0.1.1
 default:
-  # Google
   GOOGLE_SERVICE_ACC_KEY_FILEPATH: "/home/src/secrets.json"
 
 
