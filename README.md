@@ -2,7 +2,7 @@
 
 ## Mage Structure
 
-Mage phase follows the [ETL process](../README.md#etl) outlined in the main README. The orchestrator initiates individual calls, processing data one hour at a time. The Mage process is divided into three steps:
+Mage phase follows the [ETL process](https://github.com/AlmudenaZhou/data-engineer-gharchive//blob/main/README.md#etl) outlined in the main README. The orchestrator initiates individual calls, processing data one hour at a time. The Mage process is divided into three steps:
 
 - [load_data](gharchive/data_loaders/download_gharchive_data_bulk.py) covers the process until the initial dataframe conversion
 - [transform](gharchive/transformers/compress_data_to_df_bulk.py)  encompasses the process from data compression to schema conversion.
