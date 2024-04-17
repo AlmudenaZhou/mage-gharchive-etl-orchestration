@@ -2,33 +2,33 @@
 
 ## Mage Structure
 
-Mage phase follows the [ETL process](../README.md#etl). The orchestrator makes individual calls, one hour at a time. The process inside Mage it is divided into 3 steps:
+Mage phase follows the [ETL process](../README.md#etl) outlined in the main README. The orchestrator initiates individual calls, processing data one hour at a time. The Mage process is divided into three steps:
 
-- [load_data](gharchive/data_loaders/download_gharchive_data_bulk.py) includes until first dataframe conversion included.
-- [transform](gharchive/transformers/compress_data_to_df_bulk.py) includes until after converted to schema included.
-- [export](gharchive/data_exporters/dataframe_to_gcs_parquet.py) includes save the data into a datalake
+- [load_data](gharchive/data_loaders/download_gharchive_data_bulk.py) covers the process until the initial dataframe conversion
+- [transform](gharchive/transformers/compress_data_to_df_bulk.py)  encompasses the process from data compression to schema conversion.
+- [export](gharchive/data_exporters/dataframe_to_gcs_parquet.py) handles the saving of data into a datalake.
 
 Note:
-It seems mage transform to json if the output is not a dataframe => tuples or dictionaries that containes dataframes are transformed into json
+Mage transforms data into JSON if the output is not a dataframe, such as tuples or dictionaries containing dataframes.
 
 ## Setup
 
 1. Build the container: `docker compose build`
 2. Start the container: `docker compose up`
-3. Add secrets.json with the google cloud credentials
-4. Change io_config.yaml to:
+3. Add `secrets.json` with the Google Cloud credentials
+4. Modify `io_config.yaml` as follows:
     ```
     version: 0.1.1
     default:
       # Google
       GOOGLE_SERVICE_ACC_KEY_FILEPATH: "/home/src/secrets.json"
-      ```
+    ```
 
 
 ## Backfilled setup
 
-This will help you to load historical data or to fill gaps if a real-time hourly trigger has failed.
+To load historical data or fill gaps from failed real-time hourly triggers, follow these steps:
 
-1. Fill the start and end date and time for the dates you want to fill your database
-1. Interval type -> hour
-1. Interval units -> 1
+1. Specify the start and end date and time for the period you want to fill in your database.
+1. Select the interval type as "hour".
+1. Set the interval units to "1".
