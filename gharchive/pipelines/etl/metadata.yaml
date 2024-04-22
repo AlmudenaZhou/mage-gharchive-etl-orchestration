@@ -1,41 +1,60 @@
 blocks:
-- all_upstream_blocks_executed: true
-  color: null
-  configuration:
-    file_source:
-      path: data_loaders/download_gharchive_data_bulk.py
-  downstream_blocks:
-  - compress_data_to_df_bulk
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: download_gharchive_data_bulk
-  retry_config: null
-  status: updated
-  timeout: null
-  type: data_loader
-  upstream_blocks: []
-  uuid: download_gharchive_data_bulk
 - all_upstream_blocks_executed: false
   color: null
   configuration:
     file_source:
-      path: transformers/compress_data_to_df_bulk.py
+      path: transformers/dataframe_to_schema.py
   downstream_blocks:
   - dataframe_to_gcs_parquet
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: compress_data_to_df_bulk
+  name: dataframe_to_schema
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: transformer
   upstream_blocks:
-  - download_gharchive_data_bulk
-  uuid: compress_data_to_df_bulk
+  - expand_dict_df_columns
+  uuid: dataframe_to_schema
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    file_source:
+      path: transformers/expand_dict_df_columns.py
+  downstream_blocks:
+  - dataframe_to_schema
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: expand_dict_df_columns
+  retry_config: null
+  status: updated
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - download_gharchive_data
+  uuid: expand_dict_df_columns
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: data_loaders/download_gharchive_data.py
+  downstream_blocks:
+  - expand_dict_df_columns
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: download_gharchive_data
+  retry_config: null
+  status: updated
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: download_gharchive_data
 - all_upstream_blocks_executed: false
   color: null
   configuration:
@@ -52,7 +71,7 @@ blocks:
   timeout: null
   type: data_exporter
   upstream_blocks:
-  - compress_data_to_df_bulk
+  - dataframe_to_schema
   uuid: dataframe_to_gcs_parquet
 cache_block_output_in_memory: false
 callbacks: []
@@ -75,7 +94,7 @@ settings:
 spark_config: {}
 tags: []
 type: python
-updated_at: '2024-03-26 12:43:52'
+updated_at: '2024-04-22 20:15:00'
 uuid: etl
 variables_dir: /home/src/mage_data/gharchive
 widgets: []

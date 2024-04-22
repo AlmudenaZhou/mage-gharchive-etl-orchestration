@@ -4,9 +4,11 @@
 
 Mage phase follows the [ETL process](https://github.com/AlmudenaZhou/data-engineer-gharchive//blob/main/README.md#etl) outlined in the main README. The orchestrator initiates individual calls, processing data one hour at a time. The Mage process is divided into three steps:
 
-- [load_data](gharchive/data_loaders/download_gharchive_data_bulk.py) covers the process until the initial dataframe conversion
-- [transform](gharchive/transformers/compress_data_to_df_bulk.py)  encompasses the process from data compression to schema conversion.
-- [export](gharchive/data_exporters/dataframe_to_gcs_parquet.py) handles the saving of data into a datalake.
+- **Load data**: This module, available at [load_data](gharchive/data_loaders/download_gharchive_data_bulk.py), manages the process until the initial conversion of data into a dataframe.
+- **Transform**: This stage is divided into two distinct parts:
+  - The first part involves expanding dictionary keys into columns. This transformation is performed by the module located at [expand_dict_df_columns.py](gharchive/transformers/expand_dict_df_columns.py).
+  - The second part concerns schema conversion, which is executed by the module found at [dataframe_to_schema.py](gharchive/transformers/dataframe_to_schema.py).
+- **Export**: This module, accessible at [dataframe_to_gcs_parquet.py](gharchive/data_exporters/dataframe_to_gcs_parquet.py), is responsible for saving the processed data into a datalake, specifically in the Parquet format.
 
 Note:
 Mage transforms data into JSON if the output is not a dataframe, such as tuples or dictionaries containing dataframes.

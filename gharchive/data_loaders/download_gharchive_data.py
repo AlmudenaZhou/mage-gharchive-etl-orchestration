@@ -54,9 +54,11 @@ def load_data(*args, **kwargs):
     print(year, month, day, hour)
 
     compressed_data = download_gharchive_data(year, month, day, hour)
+    print('Downloaded data')
     json_decoded_lines = compressed_data_to_list_of_dicts(compressed_data)
+    print('Converted data to list of dicts')
     df = convert_to_df(json_decoded_lines)
-    print('Finished')
+    print('Converted data to pandas DataFrame')
     return df
 
 
