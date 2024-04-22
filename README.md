@@ -14,21 +14,26 @@ Mage transforms data into JSON if the output is not a dataframe, such as tuples 
 ## Setup
 
 1. Build the container: `docker compose build`
-2. Start the container: `docker compose up`
-3. Add `secrets.json` with the Google Cloud credentials
-4. Modify `io_config.yaml` as follows:
+1. Start the container: `docker compose up`
+1. Add `secrets.json` with the Google Cloud credentials
+1. Modify `io_config.yaml` as follows:
     ```
     version: 0.1.1
     default:
       # Google
       GOOGLE_SERVICE_ACC_KEY_FILEPATH: "/home/src/secrets.json"
     ```
-
+1. Access Mage via the URL provided by Cloud Run or the designated port, typically https://localhost:6789 if available.
+1. Activate the trigger named "hourly trigger".
 
 ## Backfilled setup
 
-To load historical data or fill gaps from failed real-time hourly triggers, follow these steps:
+To load historical data or fill gaps from failed real-time hourly triggers, from the mage main menu follow these steps:
 
-1. Specify the start and end date and time for the period you want to fill in your database.
-1. Select the interval type as "hour".
+1. Navigate to the "Triggers" tab on the left-hand side.
+1. Click on the "+ New Trigger" button.
+1. Choose the trigger type as "Schedule".
+1. Enter a name and description for the trigger.
+1. Select "hourly" as the interval type.
 1. Set the interval units to "1".
+1. Define the start and end date and time for the period you wish to populate in your database.
